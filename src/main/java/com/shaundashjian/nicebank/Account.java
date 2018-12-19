@@ -8,11 +8,11 @@ public class Account {
 		balance = new Money();
 	}
 	
-	public void deposit(Money amount) {
+	public void credit(Money amount) {
 		balance = balance.add(amount);
 	}
 
-	public int withdraw(int dollars) {
+	public int debit(int dollars) {
 		if (balance.dollars() >= dollars) {
 			balance = balance.minus(new Money(dollars, 0));
 			return dollars;

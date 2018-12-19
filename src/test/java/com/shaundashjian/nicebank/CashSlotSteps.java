@@ -1,13 +1,10 @@
 package com.shaundashjian.nicebank;
 
-import cucumber.api.PendingException;
-import cucumber.api.Transform;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.When;
+import static org.junit.Assert.assertEquals;
 
-import com.shaundashjian.transforms.MoneyConverter;
+import com.shaundashjian.support.KnowsTheDomain;
+
 import cucumber.api.java.en.Then;
-import static org.junit.Assert.*;
 
 public class CashSlotSteps {
 	KnowsTheDomain helper;

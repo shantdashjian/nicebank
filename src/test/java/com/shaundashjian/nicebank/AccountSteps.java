@@ -1,13 +1,14 @@
 package com.shaundashjian.nicebank;
 
+import static org.junit.Assert.assertEquals;
+
+import com.shaundashjian.support.KnowsTheDomain;
+import com.shaundashjian.transforms.MoneyConverter;
+
 import cucumber.api.PendingException;
 import cucumber.api.Transform;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.When;
-
-import com.shaundashjian.transforms.MoneyConverter;
 import cucumber.api.java.en.Then;
-import static org.junit.Assert.*;
 
 public class AccountSteps {
 	KnowsTheDomain helper;
@@ -16,13 +17,16 @@ public class AccountSteps {
 		this.helper = helper;
 	}
 	
-	@Given("^I have deposited (\\$\\d+\\.\\d+) in my account$")
-	public void iHaveDeposited$InMyAccount(
-			@Transform(MoneyConverter.class) Money amount) 
-			throws Exception {
-		helper.getAccount().deposit(amount);
-		assertEquals("Incorrect funds - ", amount,
-				helper.getAccount().getBalance());
+	@Given("^my account has been credited with (\\$\\d+\\.\\d+)$")
+	public void myAccountHasBeenCreditedWith$(
+			@Transform(MoneyConverter.class) Money amount) throws Exception {
+		helper.getAccount().credit(amount);
+	}
+	
+	@Then("^the balance of my account should be (\\$\\d+\\.\\d+)$")
+	public void theBalanceOfMyAccountShouldBe$(
+			@Transform(MoneyConverter.class) Money amount) throws Exception {
+	    assertEquals("Incorrect funds -", amount, helper.getAccount().getBalance());
 	}
 
 }

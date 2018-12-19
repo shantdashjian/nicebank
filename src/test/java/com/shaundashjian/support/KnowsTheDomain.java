@@ -1,6 +1,8 @@
-package com.shaundashjian.nicebank;
+package com.shaundashjian.support;
 
-import static org.hamcrest.CoreMatchers.nullValue;
+import com.shaundashjian.nicebank.Account;
+import com.shaundashjian.nicebank.CashSlot;
+import com.shaundashjian.nicebank.Teller;
 
 public class KnowsTheDomain {
 
@@ -17,7 +19,7 @@ public class KnowsTheDomain {
 
 	public Teller getTeller() {
 		if (teller == null) {
-			teller = new Teller(getCashSlot());
+			teller = new AtmUserInterface();
 		}
 		return teller;
 	}

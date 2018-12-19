@@ -1,4 +1,4 @@
-package com.shaundashjian.nicebank;
+package com.shaundashjian;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;

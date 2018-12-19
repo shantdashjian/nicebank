@@ -1,13 +1,6 @@
 package com.shaundashjian.nicebank;
 
-public class Teller {
-	private CashSlot cashSlot;
-	
-	public Teller(CashSlot cashSlot) {
-		this.cashSlot = cashSlot;
-	}
-	public void withdrawFrom(Account account, int dollars) {
-		cashSlot.despense(account.withdraw(dollars));
-	}
+public interface Teller {
+	public void withdrawFrom(Account account, int dollars);
 
 }
