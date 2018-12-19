@@ -6,9 +6,11 @@ import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty"}, 
+@CucumberOptions(plugin = {"pretty", "html:out"}, 
 				snippets = SnippetType.CAMELCASE, 
 				strict = true,
-				dryRun = false)
+				dryRun = false
+//				, tags = {"@dev"}
+				)
 public class RunCucumberTest {
 }

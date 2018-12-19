@@ -7,7 +7,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 public class AtmServer {
 	private final Server server;
 	
-	public AtmServer(int port) {
+	public AtmServer(int port, CashSlot cashSlot, Account account) {
 		server = new Server(port);
 		
 		ServletContextHandler contextHandler =
@@ -15,7 +15,9 @@ public class AtmServer {
 		contextHandler.setContextPath("/");
 		server.setHandler(contextHandler);
 		
-		contextHandler.addServlet(new ServletHolder(new AtmServlet()), "/*");
+		contextHandler.addServlet(new ServletHolder(new WithdrawalServlet(cashSlot, account)), "/withdraw");
+		contextHandler.addServlet(new ServletHolder(new CheckBalanceServlet(cashSlot, account)), "/checkbalance");
+		contextHandler.addServlet(new ServletHolder(new AtmServlet()), "/");
 	}
 	
 	public void start() throws Exception {
@@ -29,6 +31,9 @@ public class AtmServer {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		new AtmServer(9988).start();
+		Account account = new Account();
+		account.credit(new Money(100, 0));
+		
+		new AtmServer(9988, new CashSlot(), account).start();
 	}
 }

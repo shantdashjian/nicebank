@@ -1,7 +1,11 @@
 package com.shaundashjian.nicebank;
 
+import static org.junit.Assert.assertEquals;
+
 import com.shaundashjian.support.KnowsTheDomain;
 
+import cucumber.api.PendingException;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class TellerSteps {

@@ -9,6 +9,7 @@ import cucumber.api.PendingException;
 import cucumber.api.Transform;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 
 public class AccountSteps {
 	KnowsTheDomain helper;
@@ -28,5 +29,22 @@ public class AccountSteps {
 			@Transform(MoneyConverter.class) Money amount) throws Exception {
 	    assertEquals("Incorrect funds -", amount, helper.getAccount().getBalance());
 	}
+	
+	@When("^I check my balance$")
+	public void iCheckMyBalance() throws Exception {
+	    helper.getTeller().checkBalance(helper.getAccount());
+	}
+	
+	@Then("^I should be told that I have insufficient funds in my account$")
+	public void iShouldBeToldThatIHaveInsufficientFundsInMyAccount() throws Exception {
+	    assertEquals(Account.INSUFFICIENT_FUNDS, helper.getAccount().getDisplay());
+	}
+	
+	@Then("^I should see that my balance is \\$(\\d+)\\.(\\d+)$")
+	public void iShouldSeeThatMyBalanceIs$(int arg1, int arg2) throws Exception {
+	    assertEquals(Account.BALANCE_MESSAGE + helper.getAccount().getBalance(), 
+	    		helper.getAccount().getDisplay());
+	}
+
 
 }
