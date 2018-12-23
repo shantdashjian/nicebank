@@ -15,6 +15,13 @@ public class CashSlotSteps {
 	}
 	@Then("^\\$(\\d+) should be dispensed$")
 	public void $ShouldBeDispensed(int dollars) throws Exception {
+		int timeout = 3000;
+		int pollInterval = 1000;
+		while (helper.getCashSlot().getContents() != dollars 
+				&& timeout > 0) {
+			Thread.sleep(pollInterval);
+			timeout -= pollInterval;
+		}
 		assertEquals("Incorrect funds -", dollars, helper.getCashSlot().getContents());
 	}
 	

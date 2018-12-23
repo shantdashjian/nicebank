@@ -10,6 +10,7 @@ import cucumber.api.Transform;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.runtime.Timeout;
 
 public class AccountSteps {
 	KnowsTheDomain helper;
@@ -27,6 +28,16 @@ public class AccountSteps {
 	@Then("^the balance of my account should be (\\$\\d+\\.\\d+)$")
 	public void theBalanceOfMyAccountShouldBe$(
 			@Transform(MoneyConverter.class) Money amount) throws Exception {
+		
+		int timeout = 3000;
+		int pollInterval = 1000;
+
+		while (!helper.getAccount().getBalance().equals(amount)
+				&& timeout > 0) {
+			Thread.sleep(pollInterval);
+			timeout -= pollInterval;
+		}
+		
 	    assertEquals("Incorrect funds -", amount, helper.getAccount().getBalance());
 	}
 	

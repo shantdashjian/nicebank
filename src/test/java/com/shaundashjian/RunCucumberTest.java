@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 				snippets = SnippetType.CAMELCASE, 
 				strict = true,
 				dryRun = false
-//				, tags = {"@dev"}
+				, tags = {"@dev"}
 				)
 public class RunCucumberTest {
 }

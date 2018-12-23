@@ -4,20 +4,26 @@ public class Account {
 	static final String INSUFFICIENT_FUNDS = "You have insufficient funds in your account!";
 	static final String BALANCE_MESSAGE = "Your balance is: $";
 	private String display = "";
+	private static final int SLEEP = 0;
 	
-	private Money balance;
+	private TransactionQueue queue = new TransactionQueue();
 
 	public Account() {
-		balance = new Money();
 	}
 	
 	public void credit(Money amount) {
-		balance = balance.add(amount);
+		try {
+			Thread.sleep(SLEEP);
+		} catch (InterruptedException e) {
+			// TODO: handle exception
+		}
+		queue.write("+" + amount.toString());
 	}
 
 	public int debit(int dollars) {
-		if (balance.dollars() >= dollars) {
-			balance = balance.minus(new Money(dollars, 0));
+		if (BalanceStore.getBalance().dollars() >= dollars) {
+			Money amount = new Money(dollars, 0);
+			queue.write("-" + amount.toString());
 			display = "";
 			return dollars;
 		}
@@ -26,8 +32,8 @@ public class Account {
 	}
 
 	public Money getBalance() {
-		display = Account.BALANCE_MESSAGE + balance;
-		return balance;
+		display = Account.BALANCE_MESSAGE + BalanceStore.getBalance();
+		return BalanceStore.getBalance();
 	}
 
 	public String getDisplay() {
