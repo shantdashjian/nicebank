@@ -1,6 +1,8 @@
 package com.shaundashjian.nicebank;
 
-public class Account {
+import org.javalite.activejdbc.Model;
+
+public class Account extends Model {
 	static final String INSUFFICIENT_FUNDS = "You have insufficient funds in your account!";
 	static final String BALANCE_MESSAGE = "Your balance is: $";
 	private String display = "";
@@ -17,13 +19,13 @@ public class Account {
 		} catch (InterruptedException e) {
 			// TODO: handle exception
 		}
-		queue.write("+" + amount.toString());
+		queue.write("+" + amount.toString() + "," + getNumber());
 	}
 
 	public int debit(int dollars) {
-		if (BalanceStore.getBalance().dollars() >= dollars) {
+		if (getBalance().dollars() >= dollars) {
 			Money amount = new Money(dollars, 0);
-			queue.write("-" + amount.toString());
+			queue.write("-" + amount.toString() + "," + getNumber());
 			display = "";
 			return dollars;
 		}
@@ -31,11 +33,20 @@ public class Account {
 		return 0;
 	}
 
+	public int getNumber() {
+		return getInteger("number");
+	}
+	
 	public Money getBalance() {
-		display = Account.BALANCE_MESSAGE + BalanceStore.getBalance();
-		return BalanceStore.getBalance();
+		display = Account.BALANCE_MESSAGE + getBalance();
+		return new Money(getString("balance"));
 	}
 
+	public void setBalance(Money amount) {
+		setString("balance", amount.toString());
+		saveIt();
+	}
+	
 	public String getDisplay() {
 		return display;
 	}

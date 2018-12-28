@@ -1,6 +1,5 @@
 package com.shaundashjian.support;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
@@ -16,7 +15,10 @@ public class KnowsTheDomain {
 	private EventFiringWebDriver webDriver;
 	
 	public KnowsTheDomain() {
+		// if using Firefox
         System.setProperty("webdriver.gecko.driver", "/Users/shaundashjian/Learning/Tools/geckodriver");
+        // if using Chrome
+        System.setProperty("webdriver.chrome.driver", "/Users/shaundashjian/Learning/Tools/chromedriver");
 
 	}
 	public Account getAccount() {

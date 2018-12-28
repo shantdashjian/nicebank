@@ -79,7 +79,8 @@ formatter.match({
   "location": "AccountSteps.myAccountHasBeenCreditedWith$(Money)"
 });
 formatter.result({
-  "status": "passed"
+  "error_message": "org.javalite.activejdbc.DBException: Failed to retrieve metadata from DB, connection: \u0027default\u0027 is not available\n\tat org.javalite.activejdbc.Registry.init(Registry.java:134)\n\tat org.javalite.activejdbc.Model.getMetaModel(Model.java:58)\n\tat org.javalite.activejdbc.Model.getMetaModelLocal(Model.java:946)\n\tat org.javalite.activejdbc.Model.get(Model.java:1021)\n\tat com.shaundashjian.nicebank.Account.get(Account.java)\n\tat org.javalite.activejdbc.Model.getInteger(Model.java:1099)\n\tat com.shaundashjian.nicebank.Account.getInteger(Account.java)\n\tat com.shaundashjian.nicebank.Account.getNumber(Account.java:37)\n\tat com.shaundashjian.nicebank.Account.credit(Account.java:22)\n\tat com.shaundashjian.nicebank.AccountSteps.myAccountHasBeenCreditedWith$(AccountSteps.java:25)\n\tat ✽.my account has been credited with $100.00(com/shaundashjian/nicebank/cash_withdrawal.feature:4)\n",
+  "status": "failed"
 });
 formatter.step({
   "name": "I withdraw $20",
@@ -89,7 +90,7 @@ formatter.match({
   "location": "TellerSteps.iWithdraw$(int)"
 });
 formatter.result({
-  "status": "passed"
+  "status": "skipped"
 });
 formatter.step({
   "name": "$20 should be dispensed",
@@ -99,7 +100,7 @@ formatter.match({
   "location": "CashSlotSteps.$ShouldBeDispensed(int)"
 });
 formatter.result({
-  "status": "passed"
+  "status": "skipped"
 });
 formatter.step({
   "name": "the balance of my account should be $80.00",
@@ -109,7 +110,7 @@ formatter.match({
   "location": "AccountSteps.theBalanceOfMyAccountShouldBe$(Money)"
 });
 formatter.result({
-  "status": "passed"
+  "status": "skipped"
 });
 formatter.embedding("image/png", "embedded0.png");
 formatter.after({

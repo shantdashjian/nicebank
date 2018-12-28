@@ -1,9 +1,7 @@
 package com.shaundashjian.support;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
@@ -15,7 +13,7 @@ public class AtmUserInterface implements Teller {
 
 	private KnowsTheDomain helper;
 	private EventFiringWebDriver webDriver;
-	public static final long SLEEP = 0;
+	public static final long SLEEP = 2000;
 
 	
 	public AtmUserInterface(KnowsTheDomain helper) {
@@ -28,9 +26,10 @@ public class AtmUserInterface implements Teller {
 			
 			webDriver.get("http://localhost:" + ServerHooks.PORT);
 			Thread.sleep(AtmUserInterface.SLEEP);
-			
+			Actions actions = new Actions(webDriver);
 			WebElement element = webDriver.findElement(By.id("withdraw" + dollars));
-			element.click();
+			actions.moveToElement(element).click().perform();
+			
 			Thread.sleep(AtmUserInterface.SLEEP);
 		} catch (Exception e) {
 			// TODO: handle exception

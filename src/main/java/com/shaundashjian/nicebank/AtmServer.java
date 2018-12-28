@@ -3,6 +3,7 @@ package com.shaundashjian.nicebank;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.javalite.activejdbc.Base;
 
 public class AtmServer {
 	private final Server server;
@@ -31,9 +32,9 @@ public class AtmServer {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		Account account = new Account();
-		account.credit(new Money(100, 0));
-		
-		new AtmServer(9988, new CashSlot(), account).start();
+		Base.open("com.mysql.jdbc.Driver", 
+				"jdbc:mysql://localhost/bank", 
+				"teller", "password");
+		new AtmServer(9988, new CashSlot(), new Account()).start();
 	}
 }
