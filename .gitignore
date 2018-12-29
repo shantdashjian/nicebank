@@ -7,6 +7,9 @@ target
 # Test output
 out
 
+# REAMME.md html
+.README.md.html
+
 # Compiled class file
 *.class
 
