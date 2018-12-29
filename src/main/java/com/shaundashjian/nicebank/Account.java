@@ -11,26 +11,26 @@ public class Account extends Model {
 	private TransactionQueue queue = new TransactionQueue();
 
 	public Account() {
+		
+	}
+	public Account(int number) {
+		setInteger("number", number);
+		setString("balance", "0.00");
 	}
 	
 	public void credit(Money amount) {
-		try {
-			Thread.sleep(SLEEP);
-		} catch (InterruptedException e) {
-			// TODO: handle exception
-		}
 		queue.write("+" + amount.toString() + "," + getNumber());
 	}
 
 	public int debit(int dollars) {
-		if (getBalance().dollars() >= dollars) {
+//		if (getBalance().dollars() >= dollars) {
 			Money amount = new Money(dollars, 0);
 			queue.write("-" + amount.toString() + "," + getNumber());
 			display = "";
 			return dollars;
-		}
-		display = Account.INSUFFICIENT_FUNDS;
-		return 0;
+//		}
+//		display = Account.INSUFFICIENT_FUNDS;
+//		return 0;
 	}
 
 	public int getNumber() {
@@ -38,7 +38,8 @@ public class Account extends Model {
 	}
 	
 	public Money getBalance() {
-		display = Account.BALANCE_MESSAGE + getBalance();
+		refresh();
+		display = Account.BALANCE_MESSAGE + getString("balance").toString();
 		return new Money(getString("balance"));
 	}
 

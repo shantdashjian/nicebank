@@ -1,5 +1,6 @@
 package com.shaundashjian.support;
 
+import org.javalite.activejdbc.Base;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 
@@ -15,6 +16,12 @@ public class KnowsTheDomain {
 	private EventFiringWebDriver webDriver;
 	
 	public KnowsTheDomain() {
+		// set the db connection
+		if (!Base.hasConnection()) {
+			Base.open("com.mysql.jdbc.Driver", 
+					"jdbc:mysql://localhost/bank", 
+					"teller", "password");
+		}
 		// if using Firefox
         System.setProperty("webdriver.gecko.driver", "/Users/shaundashjian/Learning/Tools/geckodriver");
         // if using Chrome
@@ -23,7 +30,8 @@ public class KnowsTheDomain {
 	}
 	public Account getAccount() {
 		if (account == null) {
-			account = new Account();
+			account = new Account(1234);
+			account.saveIt();
 		}
 		return account;
 	}
