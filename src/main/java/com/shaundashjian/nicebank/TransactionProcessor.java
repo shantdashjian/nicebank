@@ -8,11 +8,10 @@ public class TransactionProcessor {
 
 	public void process() {
 		// set the db connection
-			Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
+		Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/bank", "teller", "password");
 		
 		do {
 			String message = queue.read();
-			System.out.println("************** processing: " + message);
 			try {
 				Thread.sleep(SLEEP);
 			} catch (InterruptedException e) {
@@ -22,6 +21,9 @@ public class TransactionProcessor {
 			if (message.length() > 0) {
 				String[] parts = message.split(",");
 				Account account = Account.findFirst("number = ?", parts[1]);
+				if (account == null) {
+					throw new RuntimeException("Account number not found: " + parts[1]);
+				}
 				Money transactionAmount = new Money(parts[0]);
 
 				if (isCreditTransaction(message)) {

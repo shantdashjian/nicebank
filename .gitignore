@@ -4,6 +4,9 @@
 .classpath
 target
 
+# Test output
+out
+
 # Compiled class file
 *.class
 

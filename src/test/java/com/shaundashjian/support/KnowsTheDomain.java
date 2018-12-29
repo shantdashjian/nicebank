@@ -21,6 +21,7 @@ public class KnowsTheDomain {
 			Base.open("com.mysql.jdbc.Driver", 
 					"jdbc:mysql://localhost/bank", 
 					"teller", "password");
+			Account.deleteAll();
 		}
 		// if using Firefox
         System.setProperty("webdriver.gecko.driver", "/Users/shaundashjian/Learning/Tools/geckodriver");
